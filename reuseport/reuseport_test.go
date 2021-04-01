@@ -66,7 +66,7 @@ func testNewListener(t *testing.T, network, addr string, serversCount, requestsC
 		ch := make(chan struct{})
 		go func() {
 			if resp, err = ioutil.ReadAll(c); err != nil {
-				t.Fatalf("%d. unexpected error when reading response: %s", i, err)
+				t.Errorf("%d. unexpected error when reading response: %s", i, err)
 			}
 			close(ch)
 		}()
@@ -107,7 +107,7 @@ func serveEcho(t *testing.T, ln net.Listener) {
 		}
 		req, err := ioutil.ReadAll(c)
 		if err != nil {
-			t.Fatalf("unepxected error when reading request: %s", err)
+			t.Fatalf("unexpected error when reading request: %s", err)
 		}
 		if _, err = c.Write(req); err != nil {
 			t.Fatalf("unexpected error when writing response: %s", err)
